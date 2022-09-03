@@ -23,3 +23,29 @@ header {
     grid-template-rows: repeat(3, 1fr);
     background-color: rgb(239 233 219 / 0%);
     background-image: url("./images/background.jpg");
+}
+
+.cell:nth-child(3n-1){
+    border-left: 15px solid black;
+    border-right: 15px solid black;
+}
+
+.cell:nth-child(n+4):nth-child(-n+6){
+    border-top: 15px solid black;
+    border-bottom: 15px solid black;
+}
+
+.cell {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+}
+
+.cell > img {
+    max-width:100%;
+    max-height:100%;
+}
