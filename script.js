@@ -1,17 +1,14 @@
 const cells = Array.from(document.getElementsByClassName('cell'));
 console.log(cells)
 let modal = document.querySelector('.modal')
-let winnerSign = document.getElementById('winner-sign');
+let result = document.getElementById('result');
 let playerX = document.querySelector('.player-x');
 let playerO = document.querySelector('.player-o');
 
 
 
 cells.forEach(cell => cell.addEventListener('click', check))
-window.onclick = function(event) {
-    modal.style.display = "none";
-    // add reset to the game board
-}
+
 
 
 const Player = (name, mark) => {
@@ -29,7 +26,29 @@ const gameFlow = (() => {
         else image.src = "./images/o.jpg";
         div.appendChild(image);
     }
-    return {marker}
+
+    const checkWin = (arr, mark) => {
+        if (arr.length >= 3){
+            for (let idx=0; idx < arr.length; idx++){
+            let i = idx+1;
+            let j = arr.length - 1;
+            while (j > i){
+                if (arr[j] - arr[i] === arr[i] - arr[idx]){
+                    if (mark === 'x') result.textContent = "X";
+                    else result.textContent = "O";
+                    modal.style.display = 'flex';
+                    return;
+                }
+                else if (arr[j] - arr[i] > arr[i] - arr[idx]) j--;
+                else {
+                    i += 1;
+                    j = arr.length - 1;
+                }
+            }
+        }
+    }
+}
+    return {marker, checkWin}
 })();
 
 
@@ -45,15 +64,16 @@ function check(e){
     console.log(this.getAttribute('data-key'));
     let key = this.getAttribute('data-key');
     if (!gameBoard.arr[key-1]){
+        gameBoard.arr[key-1] = 1;
         console.log(playerX.classList.contains('player-active'));
         if (playerX.classList.contains('player-active')){
             gameFlow.marker(playerOne.mark, this);
-            playerOne.arr.push(key);
-            gameFlow.checkWin(playerOne.arr)
+            playerOne.playHistory.push(key);
+            gameFlow.checkWin(playerOne.playHistory, playerOne.mark)
         } else {
             gameFlow.marker(playerTwo.mark, this);
-            playerTwo.arr.push(key);
-            gameFlow.checkWin(playerTwo.arr)
+            playerTwo.playHistory.push(key);
+            gameFlow.checkWin(playerTwo.playHistory, playerTwo.mark)
         }
 
     }
