@@ -30,5 +30,10 @@ function check(){
 }
 
 
+const Player = (name, mark) => {
+    const playHistory = [];
+    return {name, mark, playHistory};
+}
+
 
 
