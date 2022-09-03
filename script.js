@@ -6,6 +6,14 @@ let playerX = document.querySelector('.player-x');
 let playerO = document.querySelector('.player-o');
 
 
+
+cells.forEach(cell => cell.addEventListener('click', check))
+window.onclick = function(event) {
+    modal.style.display = "none";
+    // add reset to the game board
+}
+
+
 const Player = (name, mark) => {
     const playHistory = [];
     return {name, mark, playHistory};
@@ -14,11 +22,15 @@ let playerOne = Player('x', 'x');
 let playerTwo = Player('o', 'o');
 
 
-cells.forEach(cell => cell.addEventListener('click', check))
-window.onclick = function(event) {
-    modal.style.display = "none";
-    // add reset to the game board
-}
+const gameFlow = (() => {
+    const marker = (mark, div) => {
+        let image = new Image();
+        if (mark === 'x') image.src = "./images/x.jpg";
+        else image.src = "./images/o.jpg";
+        div.appendChild(image);
+    }
+    return {marker}
+})();
 
 
 const gameBoard = (() => {
@@ -47,15 +59,6 @@ function check(e){
     }
 }
 
-const gameFlow = (() => {
-    const marker = (mark, div) => {
-        let image = new Image();
-        if (mark === 'x') image.src = "./images/x.jpg";
-        else image.src = "./images/o.jpg";
-        div.appendChild(image);
-    }
-    return {marker}
-})();
 
 
 
