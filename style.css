@@ -14,6 +14,26 @@ header {
     padding: 25px;
 }
 
+.players {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+    font-size: 35px;
+    text-align: center;
+}
+
+.player-o > p, .player-x > p{
+    margin: 5px;
+}
+
+.sign {
+    font-size: 60px;
+}
+
+.player-active {
+    text-shadow: 0 0 5px #00ff10;
+}
+
 .game-board {
     min-height: 700px;
     height: auto;
