@@ -6,7 +6,10 @@ let playerX = document.querySelector('.player-x');
 let playerO = document.querySelector('.player-o');
 
 
-
+modal.addEventListener('click', () => {
+    modal.style.display = 'none';
+    // reset()
+})
 cells.forEach(cell => cell.addEventListener('click', check))
 
 
@@ -48,6 +51,7 @@ const gameFlow = (() => {
         }
     }
 }
+    // const reset = () => {}
     return {marker, checkWin}
 })();
 
