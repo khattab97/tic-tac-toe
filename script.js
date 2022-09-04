@@ -34,15 +34,22 @@ const gameFlow = (() => {
 
     const checkWin = (arr, mark) => {
         if (arr.length >= 3){
+            arr.sort((a, b) => a - b);
             for (let idx=0; idx < arr.length; idx++){
                 let i = idx+1;
                 let j = arr.length - 1;
                 while (j > i){
                     if (arr[j] - arr[i] === arr[i] - arr[idx]){
-                        if (mark === 'x') result.textContent = "X";
-                        else result.textContent = "O";
-                        modal.style.display = 'flex';
-                        return;
+                        if (arr[j] - arr[i] === 2 && (arr[idx] !== "3" || arr[i] !== "5" || arr[j] !== "7")){
+                            i++;
+                            j = arr.length - 1;
+                        } else {
+                            if (mark === 'x') result.textContent = "X";
+                            else result.textContent = "O";
+                            modal.style.display = 'flex';
+                            return;
+                        }
+
                     }
                     else if (arr[j] - arr[i] > arr[i] - arr[idx]) j--;
                     else {
@@ -89,6 +96,8 @@ function check(e){
             playerTwo.playHistory.push(key);
             gameFlow.checkWin(playerTwo.playHistory, playerTwo.mark)
         }
+        playerX.classList.toggle('player-active');
+        playerO.classList.toggle('player-active');
 
     }
 }
