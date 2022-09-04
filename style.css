@@ -6,6 +6,7 @@ body, html {
     color: white;
     display: grid;
     justify-items: center;
+    background-color: #353535;
 }
 
 header {
@@ -106,4 +107,31 @@ header {
 
 #result {
     font-size: 350px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    margin: 25px;
+}
+
+button {
+    margin-right: 15px;
+    height: 60px;
+    width: 300px;
+    padding: 5px 10px;
+    font-size: 25px;
+    font-weight: bold;
+    background-color: black;
+    border: 2px solid red;
+    color: red;
+    border-radius: 25px;
+}
+
+button:hover {
+    background-color: #312e2e;
+}
+
+button:active {
+    background-color: #252525;
 }

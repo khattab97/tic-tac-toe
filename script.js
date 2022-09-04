@@ -5,6 +5,7 @@ let result = document.getElementById('result');
 let playerX = document.querySelector('.player-x');
 let playerO = document.querySelector('.player-o');
 let images = [];
+let restart = document.querySelector('button');
 
 
 modal.addEventListener('click', () => {
@@ -12,7 +13,7 @@ modal.addEventListener('click', () => {
     gameFlow.reset();
 })
 cells.forEach(cell => cell.addEventListener('click', check))
-
+restart.addEventListener('click', () => gameFlow.reset())
 
 
 const Player = (name, mark) => {
