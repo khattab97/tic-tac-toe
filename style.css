@@ -36,8 +36,7 @@ header {
 }
 
 .game-board {
-    min-height: 700px;
-    height: auto;
+    height: 700px;
     width: 700px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -57,8 +56,6 @@ header {
 }
 
 .cell {
-    width: auto;
-    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,7 +64,7 @@ header {
 }
 
 .cell > img {
-    max-width:100%;
+    max-width:90%;
     max-height:100%;
 }
 
