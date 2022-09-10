@@ -35,19 +35,9 @@ const Player = (name, mark) => {
     const playHistory = [];
     return {name, mark, playHistory};
 }
-let playerOne = Player('x', 'x');
-let playerTwo = Player('o', 'o');
 
 
 const gameFlow = (() => {
-    const marker = (mark, div) => {
-        let image = new Image();
-        if (mark === 'x') image.src = "./images/x.jpg";
-        else image.src = "./images/o.jpg";
-        div.appendChild(image);
-        images.push(image);
-    };
-
     const checkWin = (arr, mark) => {
         if (arr.length >= 3){
             arr.sort((a, b) => a - b);
@@ -77,41 +67,46 @@ const gameFlow = (() => {
 
     const reset = () => {
         images.forEach(image => image.remove());
-        playerOne.playHistory = [];
-        playerTwo.playHistory = [];
-        gameBoard.arr = [];
+        gameBoard.playerTwo.playHistory = [];
+        gameBoard.playerOne.playHistory = [];
+        gameBoard.boardHistory = [];
     };
-    return {marker, checkWin, reset};
+    return {checkWin, reset};
 })();
 
 
 const gameBoard = (() => {
-    let arr = new Array(9).fill(0);
-    return {arr};
-})();
+    let boardHistory = [];
+    let playerOne = Player('x', 'x');
+    let playerTwo = Player('o', 'o');
 
-if (!gameBoard.arr[1]) console.log(false)
+    const updateGameboard = (player, div, key) => {
+        marker(player.mark, div);
+        player.playHistory.push(key);
+        gameFlow.checkWin(player.playHistory, player.mark);
+        playerX.classList.toggle('player-active');
+        playerO.classList.toggle('player-active');
+        // Check Draw
+        if (gameBoard.boardHistory.length === 9 && modal.style.display === 'none') populateModal();
+    };
+
+    const marker = (mark, div) => {
+        let image = new Image();
+        if (mark === 'x') image.src = "./images/x.jpg";
+        else image.src = "./images/o.jpg";
+        div.appendChild(image);
+        images.push(image);
+    };
+    return {boardHistory, playerOne, playerTwo, updateGameboard};
+})();
 
 
 function check(e){
-    console.log(this.getAttribute('data-key'));
     let key = +(this.getAttribute('data-key'));
-    console.log(typeof key)
-    if (!gameBoard.arr.includes(key)){
-        gameBoard.arr.push(key);
-        console.log(playerX.classList.contains('player-active'));
-        if (playerX.classList.contains('player-active')){
-            gameFlow.marker(playerOne.mark, this);
-            playerOne.playHistory.push(key);
-            gameFlow.checkWin(playerOne.playHistory, playerOne.mark)
-        } else {
-            gameFlow.marker(playerTwo.mark, this);
-            playerTwo.playHistory.push(key);
-            gameFlow.checkWin(playerTwo.playHistory, playerTwo.mark)
-        }
-        playerX.classList.toggle('player-active');
-        playerO.classList.toggle('player-active');
-        if (gameBoard.arr.length === 9 && modal.style.display === 'none') populateModal();
+    if (!gameBoard.boardHistory.includes(key)){
+        gameBoard.boardHistory.push(key);
+        if (playerX.classList.contains('player-active')) gameBoard.updateGameboard(gameBoard.playerOne, this, key);
+        else gameBoard.updateGameboard(gameBoard.playerTwo, this, key);
     }
 }
 
